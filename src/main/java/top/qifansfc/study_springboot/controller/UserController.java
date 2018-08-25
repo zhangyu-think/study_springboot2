@@ -23,7 +23,7 @@ public class UserController {
     }
     @RequestMapping("GetAllUser")
     public Result getAllUser() throws  Exception{
-        log.debug("获取所有用户");
+        log.debug("获取所有用户1");
         return userService.getAllUser();
     }
     @RequestMapping("InsertUser")
