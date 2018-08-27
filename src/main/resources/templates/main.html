@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主要页面</title>
+    <script type="text/javascript">
+        window.onload=function(){
+            // var nowdate=formatDate(new Date().toLocaleDateString());
+            // var beDate=document.getElementById("sBeginDate").value;
+            // var enDate=document.getElementById("sEndDate").value;
+            // if (beDate==null||beDate==""){
+            //     document.getElementById("form1").beginDate.value=nowdate;
+            // }
+            // if (enDate==null||enDate==""){
+            //     document.getElementById("form1").endDate.value=nowdate;
+            // }
+
+        }
+    </script>
+    <script type="text/javascript">
+
+        function downloadexcel(){
+            document.getElementById("form1").action="/downloadexcel";
+            return true;
+        }
+        function formatDate(time){
+            var date = new Date(time);
+            var year = date.getFullYear(),
+                month = date.getMonth()+1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+            var newTime = year + '-' +
+                (month < 10? '0' + month : month) + '-' +
+                (day < 10? '0' + day : day);
+            return newTime;
+        }
+    </script>
+</head>
+<body>
+[[${{name}}]]<br>
+<a href="/gotoeditpassword">修改密码</a><br>
+<a href="/user/logout">退出</a><br>
+------------------------------------------------------------------------------<br>
+<form id="form1" action="/chaxun" method="post">
+    <table>
+        <tr>
+            <td>起始日期:</td>
+            <td><input type="text"  name="beginDate" id="beginDate" th:value="${sBeginDate}"></td>
+        </tr>
+        <tr>
+            <td>结束日期:</td>
+            <td><input type="text"  name="endDate" id="endDate" th:value="${sEndDate}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"><input type="submit" value="查询"></td>
+            <td colspan="1"><a href="/downloadexcel">导出所见</a></td>
+        </tr>
+    </table>
+</form>
+<table border="1">
+    <tr>
+        <th>交易日期</th>
+        <th>名称</th>
+        <th>账号</th>
+        <th>金额</th>
+    </tr>
+
+
+    <tr  th:each="liushui : ${liushuis}">
+        <td th:text="${liushui.jyrq}">Onions</td>
+        <td th:text="${liushui.name}">test@test.com.cn</td>
+        <td th:text="${liushui.account}">Onions</td>
+        <td th:text="${liushui.amount}">test@test.com.cn</td>
+    </tr>
+</table>
+</body>
+</html>
