@@ -1,79 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>主要页面</title>
-    <script type="text/javascript">
-        window.onload=function(){
-            // var nowdate=formatDate(new Date().toLocaleDateString());
-            // var beDate=document.getElementById("sBeginDate").value;
-            // var enDate=document.getElementById("sEndDate").value;
-            // if (beDate==null||beDate==""){
-            //     document.getElementById("form1").beginDate.value=nowdate;
-            // }
-            // if (enDate==null||enDate==""){
-            //     document.getElementById("form1").endDate.value=nowdate;
-            // }
+    <title>查询</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link th:href="@{/css/font.css}" rel="stylesheet"/>
+    <link th:href="@{/css/xadmin.css}" rel="stylesheet"/>
 
-        }
-    </script>
-    <script type="text/javascript">
-
-        function downloadexcel(){
-            document.getElementById("form1").action="/downloadexcel";
-            return true;
-        }
-        function formatDate(time){
-            var date = new Date(time);
-            var year = date.getFullYear(),
-                month = date.getMonth()+1,//月份是从0开始的
-                day = date.getDate(),
-                hour = date.getHours(),
-                min = date.getMinutes(),
-                sec = date.getSeconds();
-            var newTime = year + '-' +
-                (month < 10? '0' + month : month) + '-' +
-                (day < 10? '0' + day : day);
-            return newTime;
-        }
-    </script>
 </head>
 <body>
-[[${{name}}]]<br>
-<a href="/gotoeditpassword">修改密码</a><br>
-<a href="/user/logout">退出</a><br>
-------------------------------------------------------------------------------<br>
-<form id="form1" action="/chaxun" method="post">
-    <table>
-        <tr>
-            <td>起始日期:</td>
-            <td><input type="text"  name="beginDate" id="beginDate" th:value="${sBeginDate}"></td>
-        </tr>
-        <tr>
-            <td>结束日期:</td>
-            <td><input type="text"  name="endDate" id="endDate" th:value="${sEndDate}"></td>
-        </tr>
-        <tr>
-            <td colspan="1"><input type="submit" value="查询"></td>
-            <td colspan="1"><a href="/downloadexcel">导出所见</a></td>
-        </tr>
-    </table>
-</form>
-<table border="1">
-    <tr>
-        <th>交易日期</th>
-        <th>名称</th>
-        <th>账号</th>
-        <th>金额</th>
-    </tr>
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo"><a href="#">公交报表查询</a></div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+    <!--<ul class="layui-nav left fast-add" lay-filter="">-->
+    <!--<li class="layui-nav-item">-->
+    <!--<a href="javascript:;">+新增</a>-->
+    <!--<dl class="layui-nav-child"> &lt;!&ndash; 二级菜单 &ndash;&gt;-->
+    <!--<dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>-->
+    <!--<dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>-->
+    <!--<dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>-->
+    <!--</dl>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item to-index"><a href="/gotoxiugai">修改密码</a></li>
+        <li class="layui-nav-item to-index"><a href="/user/logout">退出登录</a></li>
+    </ul>
 
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="/gotomain">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>报表查询</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <a href="/gotoxiugai">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>密码修改</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<!-- 左侧菜单结束 -->
+<!-- 右侧主体开始 -->
 
-    <tr  th:each="liushui : ${liushuis}">
-        <td th:text="${liushui.jyrq}">Onions</td>
-        <td th:text="${liushui.name}">test@test.com.cn</td>
-        <td th:text="${liushui.account}">Onions</td>
-        <td th:text="${liushui.amount}">test@test.com.cn</td>
-    </tr>
-</table>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="x-nav">
+                  <span class="layui-breadcrumb">
+                    <a href="">首页</a>
+                    <a href="">查询报表</a>
+                  </span>
+                </div>
+                <div class="x-body"  style="height: 90%; overflow-y:auto;">
+                    <div class="layui-row">
+                        <form class="layui-form layui-col-md12 x-so" id="form1" action="/chaxun" method="post">
+                            <div>
+                            <label class="layui-form-label" style="float: none">开始日期</label>
+                            <input class="layui-input" placeholder="格式：20180101" name="beginDate" id="beginDate" th:value="${sBeginDate}">
+                            <label class="layui-form-label" style="float: none">终止日期</label>
+                            <input class="layui-input" placeholder="格式：20180101" name="endDate" id="endDate" th:value="${sEndDate}">
+                            <button class="layui-btn" type="submit" lay-submit="">查询</button>
+                            <a href="/downloadexcel">导出所见</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div >
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>商户编号</th>
+                            <th>POS终端号</th>
+                            <th>交易日期</th>
+                            <th>卡号</th>
+                            <th>交易金额</th>
+                            <th>商户手续费</th>
+                            <th>发卡方手续费</th>
+                            <th>收单方手续费</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="liushui : ${liushuis}">
+                            <td th:text="${liushui.shhudm}">Onions</td>
+                            <td th:text="${liushui.zdbsma}">test@test.com.cn</td>
+                            <td th:text="${liushui.jioyrq}">Onions</td>
+                            <td th:text="${liushui.kahaoo}">test@test.com.cn</td>
+                            <td th:text="${liushui.jioyje}">test@test.com.cn</td>
+                            <td th:text="${liushui.shssfe}">test@test.com.cn</td>
+                            <td th:text="${liushui.fkfsxf}">test@test.com.cn</td>
+                            <td th:text="${liushui.sdfsxf}">test@test.com.cn</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+<!-- 底部开始 -->
+<div class="footer">
+    <div class="copyright">All Rights Reserved</div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/js/xadmin.js}"></script>
 </body>
 </html>
